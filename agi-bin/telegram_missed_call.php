@@ -18,15 +18,7 @@
 
         $mess = "Missed call\n".$datetime."\n".$cid;
 
-        if ($dialstatus == "CANCEL") {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot".$token."/sendMessage?chat_id=".$chatid."&text=".urlencode($mess));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            $result = curl_exec($ch);
-            var_dump($result);
-            curl_close($ch);
-        } elseif ($dialstatus == "NOANSWER" && $vmstatus == "SUCCESS") {
+        if ($vmstatus == "SUCCESS") {
             $mess .= "\nvoice message";
             $fname = "/var/spool/asterisk/voicemail/default/".$exttolocal."/INBOX/".find_latest($exttolocal);
             $ch = curl_init();
@@ -38,6 +30,14 @@
             curl_setopt($ch, CURLOPT_POSTFIELDS, [
                     "document" => $cFile
             ]);
+            $result = curl_exec($ch);
+            var_dump($result);
+            curl_close($ch);
+        } elseif ($dialstatus != "ANSWER") {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot".$token."/sendMessage?chat_id=".$chatid."&text=".urlencode($mess));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_POST, 1);
             $result = curl_exec($ch);
             var_dump($result);
             curl_close($ch);
