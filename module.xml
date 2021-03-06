@@ -1,0 +1,21 @@
+<module>
+	<rawname>telegrammissedcall</rawname>
+	<type>setup</type>
+	<name>Missed call notifications and voicemail forwarding to Telegram</name>
+	<version>0.1.0</version>
+	<publisher>markeloviv</publisher>
+	<license>GPLv3+</license>
+	<category>Applications</category>
+	<changelog>
+		0.1.0 FIX sip extensions
+		*0.1.0* Initial
+	</changelog>
+	<description>Allows you to receive notifications about missed calls and forwards your voice mail to Telegram
+	</description>
+	<depends>
+		<engine>asterisk 1.8</engine>
+		<version>0.1.0</version>
+		<module>core</module>
+	</depends>
+	<location>https://github.com/markeloviv/telegrammissedcall</location>
+</module>
